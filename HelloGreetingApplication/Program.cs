@@ -12,7 +12,8 @@ builder.Services.AddControllers();
 //Add Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddScoped<IGreetingBL, GreetingBL>();
+builder.Services.AddScoped<IGreetingRL, GreetingRL>();
 
 
 var app = builder.Build();

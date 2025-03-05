@@ -13,7 +13,12 @@ namespace HelloGreetingApplication.Controllers
     public class HelloGreetingController : ControllerBase
     {
         private static Dictionary<string, string> greetings = new Dictionary<string, string>();
-        
+        private readonly IGreetingBL _greetingBL;
+
+        public HelloGreetingController(IGreetingBL greetingBL)
+        {
+            _greetingBL = greetingBL;
+        }
 
         /// <summary>
         /// Get method to get the greeting message
@@ -144,7 +149,19 @@ namespace HelloGreetingApplication.Controllers
             });
         }
 
-        
+        [HttpGet("Greet")]
+        public IActionResult GetGreeting()
+        {
+            var greetingMessage = _greetingBL.GetGreetingMessage();
+            var response = new ResponseModel<string>
+            {
+                Success = true,
+                Message = "Greeting retrieved successfully.",
+                Data = greetingMessage
+            };
+
+            return Ok(response);
+        }
 
 
 

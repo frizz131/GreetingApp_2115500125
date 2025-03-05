@@ -1,0 +1,16 @@
+D:\Work\CSharp\GreetingApp\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.deps.json
+D:\Work\CSharp\GreetingApp\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.dll
+D:\Work\CSharp\GreetingApp\RepositoryLayer\bin\Debug\net6.0\RepositoryLayer.pdb
+D:\Work\CSharp\GreetingApp\RepositoryLayer\bin\Debug\net6.0\ModelLayer.dll
+D:\Work\CSharp\GreetingApp\RepositoryLayer\bin\Debug\net6.0\ModelLayer.pdb
+D:\Work\CSharp\GreetingApp\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.csproj.AssemblyReference.cache
+D:\Work\CSharp\GreetingApp\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\Work\CSharp\GreetingApp\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.AssemblyInfoInputs.cache
+D:\Work\CSharp\GreetingApp\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.AssemblyInfo.cs
+D:\Work\CSharp\GreetingApp\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.csproj.CoreCompileInputs.cache
+D:\Work\CSharp\GreetingApp\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.sourcelink.json
+D:\Work\CSharp\GreetingApp\RepositoryLayer\obj\Debug\net6.0\Reposito.A0A61804.Up2Date
+D:\Work\CSharp\GreetingApp\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.dll
+D:\Work\CSharp\GreetingApp\RepositoryLayer\obj\Debug\net6.0\refint\RepositoryLayer.dll
+D:\Work\CSharp\GreetingApp\RepositoryLayer\obj\Debug\net6.0\RepositoryLayer.pdb
+D:\Work\CSharp\GreetingApp\RepositoryLayer\obj\Debug\net6.0\ref\RepositoryLayer.dll
