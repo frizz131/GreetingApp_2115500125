@@ -149,14 +149,27 @@ namespace HelloGreetingApplication.Controllers
             });
         }
 
-        [HttpGet("Greet")]
-        public IActionResult GetGreeting()
+        //[HttpGet("Greet")]
+        //public IActionResult GetGreeting()
+        //{
+        //    var greetingMessage = _greetingBL.GetGreetingMessage(firstname, lastname);
+        //    var response = new ResponseModel<string>
+        //    {
+        //        Success = true,
+        //        Message = "Greeting retrieved successfully.",
+        //        Data = greetingMessage
+        //    };
+
+        //    return Ok(response);
+        //}
+        [HttpPost("Personalized")]
+        public IActionResult PostGreeting([FromBody] GreetingRequestModel requestModel)
         {
-            var greetingMessage = _greetingBL.GetGreetingMessage();
+            var greetingMessage = _greetingBL.GetPersonalizedGreeting(requestModel);
             var response = new ResponseModel<string>
             {
                 Success = true,
-                Message = "Greeting retrieved successfully.",
+                Message = "Personalized greeting created successfully.",
                 Data = greetingMessage
             };
 
