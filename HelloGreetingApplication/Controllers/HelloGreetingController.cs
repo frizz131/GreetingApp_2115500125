@@ -1,5 +1,4 @@
 using BusinessLayer.Interface;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Mvc;
 using ModelLayer.Model;
 using RepositoryLayer.DTO;
@@ -26,7 +25,7 @@ namespace HelloGreetingApplication.Controllers
         /// </summary>
         /// <returns> "Hello World" </returns>
         [HttpGet]
-        public IActionResult GetMethod() 
+        public IActionResult GetMethod()
         {
             ResponseModel<string> responseModel = new ResponseModel<string>();
             responseModel.Success = true;
@@ -41,7 +40,8 @@ namespace HelloGreetingApplication.Controllers
         /// <param name="requestModel"></param>
         /// <returns> response model</returns>
         [HttpPost]
-        public IActionResult Post(RequestModel requestModel) {
+        public IActionResult Post(RequestModel requestModel)
+        {
             if (requestModel == null || string.IsNullOrWhiteSpace(requestModel.Key) || string.IsNullOrWhiteSpace(requestModel.Value))
             {
                 return BadRequest(new ResponseModel<string>
@@ -78,7 +78,7 @@ namespace HelloGreetingApplication.Controllers
         /// <param name="newValue"></param>
         /// <returns>Updated greeting message</returns>
         [HttpPut("{key}")]
-        public IActionResult Put(string key, string newValue) 
+        public IActionResult Put(string key, string newValue)
         {
             if (!greetings.ContainsKey(key))
             {
@@ -97,7 +97,7 @@ namespace HelloGreetingApplication.Controllers
                 Message = "Greeting updated successfully.",
                 Data = $"Key: {key}, Value: {newValue}"
             });
-        
+
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace HelloGreetingApplication.Controllers
         /// <param name="key"></param>
         /// <returns>Deleted greeting message</returns>
         [HttpDelete]
-        public IActionResult Delete(string key) 
+        public IActionResult Delete(string key)
         {
             if (!greetings.ContainsKey(key))
             {
@@ -129,7 +129,7 @@ namespace HelloGreetingApplication.Controllers
         }
 
         [HttpPatch("{key}")]
-        public IActionResult Patch(string key, string partialUpdate) 
+        public IActionResult Patch(string key, string partialUpdate)
         {
             if (!greetings.ContainsKey(key))
             {
@@ -150,21 +150,25 @@ namespace HelloGreetingApplication.Controllers
             });
         }
 
-        //[HttpGet("Greet")]
-        //public IActionResult GetGreeting()
-        //{
-        //    var greetingMessage = _greetingBL.GetGreetingMessage(firstname, lastname);
-        //    var response = new ResponseModel<string>
-        //    {
-        //        Success = true,
-        //        Message = "Greeting retrieved successfully.",
-        //        Data = greetingMessage
-        //    };
+        [HttpGet("Greet")]
+        public IActionResult GetGreeting()
+        {
+            var greetingMessage = _greetingBL.GetGreeting();
+            var response = new ResponseModel<string>
+            {
+                Success = true,
+                Message = "Greeting retrieved successfully.",
+                Data = greetingMessage
+            };
 
-        //    return Ok(response);
-        //}
+            return Ok(response);
+        }
 
 
+
+        ///<summary>
+        ///Post method to get a greeting using a request body
+        ///</summary>
         [HttpPost("Personalized")]
         public IActionResult PostGreeting([FromBody] GreetingRequestModel requestModel)
         {
@@ -179,22 +183,20 @@ namespace HelloGreetingApplication.Controllers
             return Ok(response);
         }
 
-        ///<summary>
-        ///Post method to get a greeting using a request body
-        ///</summary>
-        [HttpPost("get-greeting")]
-        public IActionResult Post([FromBody] GreetingRequestModel requestModel)
-        {
-            var greetingMessage = _greetingBL.GetPersonalizedGreeting(requestModel);
-            var response = new ResponseModel<string>
-            {
-                Success = true,
-                Message = "Personalized greeting created successfully.",
-                Data = greetingMessage
-            };
+        
+        //[HttpPost("get-greeting")]
+        //public IActionResult Post([FromBody] GreetingRequestModel requestModel)
+        //{
+        //    var greetingMessage = _greetingBL.GetPersonalizedGreeting(requestModel);
+        //    var response = new ResponseModel<string>
+        //    {
+        //        Success = true,
+        //        Message = "Personalized greeting created successfully.",
+        //        Data = greetingMessage
+        //    };
 
-            return Ok(response);
-        }
+        //    return Ok(response);
+        //}
 
         [HttpPost("Add-greet")]
         public IActionResult AddGreeting([FromBody] GreetingDTO greetingDTO)
@@ -207,7 +209,16 @@ namespace HelloGreetingApplication.Controllers
             return BadRequest(new { Success = false, Message = "Failed to save greeting" });
         }
 
-
+        [HttpGet("{id}")]
+        public IActionResult GetGreetingById(int id)
+        {
+            var greeting = _greetingBL.GetGreetingById(id);
+            if (greeting == null)
+            {
+                return NotFound(new { Success = false, Message = "Greeting Not Found!" });
+            }
+            return Ok(new { Success = true, Message = "Greeting Found", Data = greeting });
+        }
 
     }
 }

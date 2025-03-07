@@ -121,30 +121,11 @@
         }
       }
     },
-    "/HelloGreeting/Personalized": {
-      "post": {
+    "/HelloGreeting/Greet": {
+      "get": {
         "tags": [
           "HelloGreeting"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GreetingRequestModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GreetingRequestModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/GreetingRequestModel"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK"
@@ -152,7 +133,7 @@
         }
       }
     },
-    "/HelloGreeting/get-greeting": {
+    "/HelloGreeting/Personalized": {
       "post": {
         "tags": [
           "HelloGreeting"
@@ -207,6 +188,29 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/HelloGreeting/{id}": {
+      "get": {
+        "tags": [
+          "HelloGreeting"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

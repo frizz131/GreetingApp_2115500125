@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BusinessLayer.Interface;
+﻿using BusinessLayer.Interface;
 using ModelLayer.Model;
 using RepositoryLayer.DTO;
 using RepositoryLayer.Interface;
@@ -18,7 +13,11 @@ namespace BusinessLayer.Service
         {
             _greetingRL = greetingRL;
         }
-
+        
+        public string GetGreeting()
+        {
+            return _greetingRL.GetGreeting();
+        }
         public string GetGreetingMessage(string firstName, string lastName)
         {
             return _greetingRL.GetGreeting(firstName, lastName);
@@ -31,6 +30,12 @@ namespace BusinessLayer.Service
         public bool AddGreeting(GreetingDTO greetingDTO)
         {
             return _greetingRL.AddGreeting(greetingDTO);
+        }
+
+        //Implementation of GetGreetingById
+        public GreetingDTO GetGreetingById(int id)
+        {
+            return _greetingRL.GetGreetingById(id);
         }
     }
 }

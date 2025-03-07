@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RepositoryLayer.DTO
+﻿namespace RepositoryLayer.DTO
 {
     //This DTO transfers data between layers
     public class GreetingDTO
     {
-        public string? Key { get; set; }
-        public string? Value { get; set; }
+        public string? key { get; set; }
+        public string? value { get; set; }
     }
 }

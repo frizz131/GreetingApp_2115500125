@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using RepositoryLayer.Context;
+﻿using RepositoryLayer.Context;
 using RepositoryLayer.DTO;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 
 namespace RepositoryLayer.Service
 {
-    
+
     public class GreetingRL : IGreetingRL
     {
         public string GetGreeting(string firstName, string lastName)
@@ -20,7 +14,7 @@ namespace RepositoryLayer.Service
             {
                 return $"Hello, {firstName} {lastName}";
             }
-            else if(!string.IsNullOrEmpty(firstName) && string.IsNullOrEmpty(lastName))
+            else if (!string.IsNullOrEmpty(firstName) && string.IsNullOrEmpty(lastName))
             {
                 return $"Hello, {firstName}";
             }
@@ -42,17 +36,33 @@ namespace RepositoryLayer.Service
             _context = context;
         }
 
+        public string GetGreeting()
+        {
+            return "Hello World!";
+        }
+
         //Saves greeting messages in the database
         public bool AddGreeting(GreetingDTO greetingDTO)
         {
             var greetingEntity = new GreetingEntity
             {
-                Key = greetingDTO.Key,
-                Value = greetingDTO.Value
+                key = greetingDTO.key,
+                value = greetingDTO.value
             };
             _context.Greetings.Add(greetingEntity);
-            
+            _context.SaveChanges();
+
             return true;
         }
+
+        //Method for retrieving a greeting by ID
+        public GreetingDTO GetGreetingById(int Id)
+        {
+            var greeting = _context.Greetings.FirstOrDefault(g => g.Id == Id);
+            return greeting == null ? null : new GreetingDTO { key = greeting.key, value = greeting.value };
+
+        }
+
+
     }
 }
