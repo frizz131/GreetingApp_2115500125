@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Interface;
 using ModelLayer.Model;
+using RepositoryLayer.DTO;
 using RepositoryLayer.Interface;
 
 namespace BusinessLayer.Service
@@ -25,6 +26,11 @@ namespace BusinessLayer.Service
         public string GetPersonalizedGreeting(GreetingRequestModel request)
         {
             return _greetingRL.GetGreeting(request.FirstName, request.LastName);
+        }
+        //Calls the repository to save greetings
+        public bool AddGreeting(GreetingDTO greetingDTO)
+        {
+            return _greetingRL.AddGreeting(greetingDTO);
         }
     }
 }

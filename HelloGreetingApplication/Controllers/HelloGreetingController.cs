@@ -2,6 +2,7 @@ using BusinessLayer.Interface;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Mvc;
 using ModelLayer.Model;
+using RepositoryLayer.DTO;
 
 namespace HelloGreetingApplication.Controllers
 {
@@ -162,6 +163,8 @@ namespace HelloGreetingApplication.Controllers
 
         //    return Ok(response);
         //}
+
+
         [HttpPost("Personalized")]
         public IActionResult PostGreeting([FromBody] GreetingRequestModel requestModel)
         {
@@ -174,6 +177,34 @@ namespace HelloGreetingApplication.Controllers
             };
 
             return Ok(response);
+        }
+
+        ///<summary>
+        ///Post method to get a greeting using a request body
+        ///</summary>
+        [HttpPost("get-greeting")]
+        public IActionResult Post([FromBody] GreetingRequestModel requestModel)
+        {
+            var greetingMessage = _greetingBL.GetPersonalizedGreeting(requestModel);
+            var response = new ResponseModel<string>
+            {
+                Success = true,
+                Message = "Personalized greeting created successfully.",
+                Data = greetingMessage
+            };
+
+            return Ok(response);
+        }
+
+        [HttpPost("Add-greet")]
+        public IActionResult AddGreeting([FromBody] GreetingDTO greetingDTO)
+        {
+            bool isAdded = _greetingBL.AddGreeting(greetingDTO);
+            if (isAdded)
+            {
+                return Ok(new { Success = true, Message = "Greeting Saved Successfully", Data = greetingDTO });
+            }
+            return BadRequest(new { Success = false, Message = "Failed to save greeting" });
         }
 
 
