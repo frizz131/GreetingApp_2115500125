@@ -10,5 +10,6 @@ namespace BusinessLayer.Interface
         string GetPersonalizedGreeting(GreetingRequestModel request);
         bool AddGreeting(GreetingDTO greetingDTO);
         GreetingDTO GetGreetingById(int Id);
+        List<GreetingDTO> GetAllGreetings();
     }
 }

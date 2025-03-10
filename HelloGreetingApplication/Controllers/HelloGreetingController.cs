@@ -183,7 +183,7 @@ namespace HelloGreetingApplication.Controllers
             return Ok(response);
         }
 
-        
+
         //[HttpPost("get-greeting")]
         //public IActionResult Post([FromBody] GreetingRequestModel requestModel)
         //{
@@ -198,6 +198,12 @@ namespace HelloGreetingApplication.Controllers
         //    return Ok(response);
         //}
 
+
+        /// <summary>
+        /// Post methdd to add greetings
+        /// </summary>
+        /// <param name="greetingDTO"></param>
+        /// <returns>ResponseModel</returns>
         [HttpPost("Add-greet")]
         public IActionResult AddGreeting([FromBody] GreetingDTO greetingDTO)
         {
@@ -218,6 +224,18 @@ namespace HelloGreetingApplication.Controllers
                 return NotFound(new { Success = false, Message = "Greeting Not Found!" });
             }
             return Ok(new { Success = true, Message = "Greeting Found", Data = greeting });
+        }
+
+        [HttpGet("GetAllGreet")]
+        public IActionResult GetAllGreetings()
+        {
+            List<GreetingDTO> greetings = _greetingBL.GetAllGreetings();
+            return Ok(new ResponseModel<List<GreetingDTO>>
+            {
+                Success = true,
+                Message = "Greetings Retrieved Successfully",
+                Data = greetings
+            });
         }
 
     }

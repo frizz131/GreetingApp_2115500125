@@ -37,5 +37,11 @@ namespace BusinessLayer.Service
         {
             return _greetingRL.GetGreetingById(id);
         }
+
+        //Calls the repository layer method to fetch all greetings.
+        public List<GreetingDTO> GetAllGreetings()
+        {
+            return _greetingRL.GetAllGreetings();
+        }
     }
 }

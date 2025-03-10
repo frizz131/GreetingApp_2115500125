@@ -63,6 +63,13 @@ namespace RepositoryLayer.Service
 
         }
 
+        //This retrieves all the greeting messages from the Greetings table.
+        public List<GreetingDTO> GetAllGreetings()
+        {
+            return _context.Greetings
+                .Select(g => new GreetingDTO { key = g.key, value = g.value })
+                .ToList();
+        }
 
     }
 }

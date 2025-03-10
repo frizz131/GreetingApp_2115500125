@@ -8,5 +8,6 @@ namespace RepositoryLayer.Interface
         string GetGreeting(string firstname, string lastname);
         bool AddGreeting(GreetingDTO greetingDTO);
         GreetingDTO GetGreetingById(int id); //method for retrieving a greeting by ID
+        List<GreetingDTO> GetAllGreetings(); //method will return list of all greetings stored in database
     }
 }
