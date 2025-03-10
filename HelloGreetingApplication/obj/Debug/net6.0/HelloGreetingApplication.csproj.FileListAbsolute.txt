@@ -85,3 +85,7 @@ D:\Work\CSharp\GreetingApp\HelloGreetingApplication\obj\Debug\net6.0\refint\Hell
 D:\Work\CSharp\GreetingApp\HelloGreetingApplication\obj\Debug\net6.0\HelloGreetingApplication.pdb
 D:\Work\CSharp\GreetingApp\HelloGreetingApplication\obj\Debug\net6.0\HelloGreetingApplication.genruntimeconfig.cache
 D:\Work\CSharp\GreetingApp\HelloGreetingApplication\obj\Debug\net6.0\ref\HelloGreetingApplication.dll
+D:\Work\CSharp\GreetingApp\HelloGreetingApplication\bin\Debug\net6.0\nlog.config
+D:\Work\CSharp\GreetingApp\HelloGreetingApplication\bin\Debug\net6.0\NLog.dll
+D:\Work\CSharp\GreetingApp\HelloGreetingApplication\bin\Debug\net6.0\NLog.Extensions.Logging.dll
+D:\Work\CSharp\GreetingApp\HelloGreetingApplication\bin\Debug\net6.0\NLog.Web.AspNetCore.dll

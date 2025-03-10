@@ -10,5 +10,6 @@ namespace RepositoryLayer.Interface
         GreetingDTO GetGreetingById(int id); //method for retrieving a greeting by ID
         List<GreetingDTO> GetAllGreetings(); //method will return list of all greetings stored in database
         bool UpdateGreeting(int id, GreetingDTO greetingDTO);   //method for updating a greeting
+        bool DeleteGreeting(int id); //method for deleting a greeting by ID
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ModelLayer.Model;
 using RepositoryLayer.DTO;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Microsoft.Extensions.Logging;
 
 namespace HelloGreetingApplication.Controllers
 {
@@ -15,10 +16,12 @@ namespace HelloGreetingApplication.Controllers
     {
         private static Dictionary<string, string> greetings = new Dictionary<string, string>();
         private readonly IGreetingBL _greetingBL;
+        private readonly ILogger<HelloGreetingController> _logger;
 
-        public HelloGreetingController(IGreetingBL greetingBL)
+        public HelloGreetingController(IGreetingBL greetingBL, ILogger<HelloGreetingController> logger)
         {
             _greetingBL = greetingBL;
+            _logger = logger;
         }
 
         /// <summary>
@@ -259,6 +262,18 @@ namespace HelloGreetingApplication.Controllers
             }
 
             return Ok(new { Success = true, Message = "Greeting updated successfully" });
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteGreeting(int id)
+        {
+            _logger.LogInformation($"Recieved request to delete Greeting with ID, {id}");
+            bool isDeleted = _greetingBL.DeleteGreeting(id);
+            if (isDeleted)
+            {
+                return Ok(new { Success = true, Message = "Greeting Deleted Successfully" });
+            }
+            return NotFound(new { Success = false, Message = "Greeting not found" });
         }
     }
 }

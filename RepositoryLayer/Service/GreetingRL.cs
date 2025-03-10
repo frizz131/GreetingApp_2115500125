@@ -5,12 +5,27 @@ using RepositoryLayer.DTO;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Microsoft.Extensions.Logging;
 
 namespace RepositoryLayer.Service
 {
 
     public class GreetingRL : IGreetingRL
     {
+        private readonly GreetingDBContext _context;
+
+        public GreetingRL(GreetingDBContext context)
+        {
+            _context = context;
+        }
+
+
+        public string GetGreeting()
+        {
+            return "Hello World!";
+        }
+
+        // Method for generating greeting message with first and last name
         public string GetGreeting(string firstName, string lastName)
         {
             if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
@@ -30,18 +45,6 @@ namespace RepositoryLayer.Service
                 return $"Hello, World";
             }
 
-        }
-
-        private readonly GreetingDBContext _context;
-
-        public GreetingRL(GreetingDBContext context)
-        {
-            _context = context;
-        }
-
-        public string GetGreeting()
-        {
-            return "Hello World!";
         }
 
         //Saves greeting messages in the database
@@ -81,7 +84,7 @@ namespace RepositoryLayer.Service
         public bool UpdateGreeting(int id, GreetingDTO greetingDTO)
         {
             var existingGreeting = _context.Greetings.FirstOrDefault(g => g.Id == id);
-            if(existingGreeting != null)
+            if (existingGreeting != null)
             {
                 existingGreeting.key = greetingDTO.key;
                 existingGreeting.value = greetingDTO.value;
@@ -90,6 +93,28 @@ namespace RepositoryLayer.Service
             }
             return false;
         }
+
+        private readonly ILogger<GreetingRL> _logger;
+
+        public GreetingRL(GreetingDBContext context, ILogger<GreetingRL> logger)
+        {
+            _context = context;
+            _logger = logger;
+        }
+
+        public bool DeleteGreeting(int id)
+        {
+            var greeting = _context.Greetings.Find(id);
+            if (greeting != null)
+            {
+                _context.Greetings.Remove(greeting);
+                _context.SaveChanges();
+                _logger.LogInformation($"Greeting with ID {id} deleted successfully");
+                return true;
+            }
+            return false;
+        }
+
 
     }
 }
