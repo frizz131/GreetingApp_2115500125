@@ -43,5 +43,10 @@ namespace BusinessLayer.Service
         {
             return _greetingRL.GetAllGreetings();
         }
+        //Calls the repository layer method to update a greeting.
+        public bool UpdateGreeting(int id, GreetingDTO greetingDTO)
+        {
+            return _greetingRL.UpdateGreeting(id, greetingDTO);
+        }
     }
 }

@@ -1,7 +1,10 @@
-﻿using RepositoryLayer.Context;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Threading.Channels;
+using RepositoryLayer.Context;
 using RepositoryLayer.DTO;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace RepositoryLayer.Service
 {
@@ -69,6 +72,23 @@ namespace RepositoryLayer.Service
             return _context.Greetings
                 .Select(g => new GreetingDTO { key = g.key, value = g.value })
                 .ToList();
+        }
+        /// <summary>
+        /// Finds the greeting message by id.
+        /// Updates its Key and Value fields.
+        /// Saves changes to the database.
+        /// </summary>
+        public bool UpdateGreeting(int id, GreetingDTO greetingDTO)
+        {
+            var existingGreeting = _context.Greetings.FirstOrDefault(g => g.Id == id);
+            if(existingGreeting != null)
+            {
+                existingGreeting.key = greetingDTO.key;
+                existingGreeting.value = greetingDTO.value;
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
     }

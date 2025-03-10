@@ -150,5 +150,26 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "HelloGreetingApplication.Controllers.HelloGreetingController",
+    "Method": "UpdateGreeting",
+    "RelativePath": "HelloGreeting/UpdateGreeting/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "greetingDTO",
+        "Type": "RepositoryLayer.DTO.GreetingDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

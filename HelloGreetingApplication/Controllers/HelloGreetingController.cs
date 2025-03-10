@@ -2,6 +2,7 @@ using BusinessLayer.Interface;
 using Microsoft.AspNetCore.Mvc;
 using ModelLayer.Model;
 using RepositoryLayer.DTO;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace HelloGreetingApplication.Controllers
 {
@@ -238,5 +239,26 @@ namespace HelloGreetingApplication.Controllers
             });
         }
 
+        /// <summary>
+        /// API Endpoint: /UpdateGreeting/{id}
+        /// Accepts a JSON body with the updated Key and Value.
+        /// Returns 404 Not Found if the greeting ID doesn't exist
+        /// </summary>
+        [HttpPut("UpdateGreeting/{id}")]
+        public IActionResult UpdateGreeting(int id, [FromBody] GreetingDTO greetingDTO)
+        {
+            if (greetingDTO == null)
+            {
+                return BadRequest(new { Success = false, Message = "Invalid request data" });
+            }
+
+            bool isUpdated = _greetingBL.UpdateGreeting(id, greetingDTO);
+            if (!isUpdated)
+            {
+                return NotFound(new { Success = false, Message = "Greeting not found" });
+            }
+
+            return Ok(new { Success = true, Message = "Greeting updated successfully" });
+        }
     }
 }
