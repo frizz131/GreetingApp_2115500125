@@ -5,6 +5,8 @@ using RepositoryLayer.Context;
 using RepositoryLayer.Interface;
 using RepositoryLayer.Service;
 using NLog.Web;
+using Microsoft.OpenApi.Models;
+using HelloGreetingApplication.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,28 +17,37 @@ builder.Logging.ClearProviders();
 builder.Host.UseNLog();
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 builder.Services.AddDbContext<GreetingDBContext>(options => options.UseSqlServer(connectionString));
 
 //Add Swagger
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "HelloGreetingAPI", Version = "v1" });
+});
+
+//Register Services
 builder.Services.AddScoped<IGreetingBL, GreetingBL>();
 builder.Services.AddScoped<IGreetingRL, GreetingRL>();
 
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure Middleware pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HelloGreetingApplicationAPI v1"));
+}
 
-app.UseSwagger();
-app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+//Use GLobal Exception handling in middleware
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 app.Run();
